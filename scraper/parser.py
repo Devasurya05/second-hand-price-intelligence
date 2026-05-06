@@ -67,6 +67,8 @@ def parse_listings(html):
         
         # Only add this listing if we got all three pieces of data
         if title and price and url:
+            if title == "Shop on eBay" or "itm/123456" in url:
+                continue
             listings.append({
                 "title": title,
                 "price_usd": price,

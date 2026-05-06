@@ -90,19 +90,18 @@ def fetch_page(session, url):
         return None
 
 
-def fetch_ebay_sold_listings(search_query, page_number=1):
+def fetch_ebay_sold_listings(session, search_query, page_number=1):
     """
-    Main function — creates a session, warms it up, then fetches listings.
+    Fetches one page of eBay sold listings using an existing session.
+    Session is created once externally and reused across pages.
     """
-    session = create_session()
     url = build_ebay_url(search_query, page_number)
     
     delay = random.uniform(5, 10)
     print(f"Waiting {delay:.1f} seconds before fetching search page...")
     time.sleep(delay)
     
-    html = fetch_page(session, url)
-    return html
+    return fetch_page(session, url)
 
 
 if __name__ == "__main__":
