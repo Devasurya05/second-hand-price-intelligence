@@ -54,7 +54,7 @@ def parse_listings(html):
         
         # --- Extract title ---
         title_element = container.find("div", class_="s-card__title")
-        title = title_element.get_text(strip=True) if title_element else None
+        title = title_element.get_text(strip=True).replace("Opens in a new window or tab", "").strip() if title_element else None
         
         # --- Extract price ---
         price_element = container.find("span", class_="s-card__price")
