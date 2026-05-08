@@ -15,11 +15,16 @@ st.write("Enter a listing title to get a condition score and price estimate.")
 def load_latest_csv():
     data_folder = os.path.join(os.path.dirname(__file__), "..", "data")
     csv_files = glob.glob(os.path.join(data_folder, "*.csv"))
-    if not csv_files:
-        return None
-    latest = max(csv_files, key=os.path.getmtime)
-    df = pd.read_csv(latest)
-    return df
+    
+    if csv_files:
+        latest = max(csv_files, key=os.path.getmtime)
+        return pd.read_csv(latest)
+    
+    fallback = os.path.join(os.path.dirname(__file__), "..", "sample_data", "sample_listings.csv")
+    if os.path.exists(fallback):
+        return pd.read_csv(fallback)
+    
+    return None
 
 df = load_latest_csv()
 
